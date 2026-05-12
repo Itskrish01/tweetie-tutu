@@ -1,59 +1,80 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { Github, Linkedin, Feather } from "lucide-react";
 import Header from "./Header/Header";
-import { Linkedin } from "lucide-react";
 
-const navigation = [
-
-
-
-  {
-    name: 'GitHub',
-    href: 'https://github.com/Itskrish01',
-    icon: (props) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path
-          fillRule="evenodd"
-          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
-  },
-  {
-    name: 'Linked In',
-    href: 'https://www.linkedin.com/in/krish-t-138400217/',
-    icon: (props) => (
-     <Linkedin {...props} />
-    ),
-  },
-]
+const socials = [
+  { name: "GitHub",   href: "https://github.com/Itskrish01",                  Icon: Github },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/krish-t-138400217/", Icon: Linkedin },
+];
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const date = new Date();
+  const year = new Date().getFullYear();
+
   return (
-    <>
-      <div>
-        <Header />
-      </div>
-      <main className="max-w-7xl mx-auto">{children}</main>
-      <footer className="bg-white">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center space-x-6 md:order-2">
-          {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </a>
-          ))}
+    <div className="flex min-h-screen flex-col bg-bg text-ink">
+      <Header />
+
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+        {children}
+      </main>
+
+      <footer className="mt-24 border-t border-rule bg-bg-soft">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-12 sm:px-6 lg:px-8">
+          <div className="sm:col-span-6">
+            <Link to="/" className="inline-flex items-center gap-2.5">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-accent text-white">
+                <Feather className="h-5 w-5" strokeWidth={2.5} />
+              </span>
+              <span className="text-[18px] font-extrabold tracking-tight text-ink">
+                Tweetie<span className="text-accent">TuTu</span>
+              </span>
+            </Link>
+            <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-muted">
+              The fastest way to mock up a tweet that looks pixel-perfect — no
+              account, no upload, all in your browser.
+            </p>
+          </div>
+
+          <div className="sm:col-span-3">
+            <p className="text-[13px] font-bold uppercase tracking-wider text-ink-faint">
+              Product
+            </p>
+            <ul className="mt-3 space-y-2 text-[15px]">
+              <li><Link to="/" className="text-ink hover:text-accent">Home</Link></li>
+              <li><Link to="/create-tweet" className="text-ink hover:text-accent">Create a tweet</Link></li>
+            </ul>
+          </div>
+
+          <div className="sm:col-span-3">
+            <p className="text-[13px] font-bold uppercase tracking-wider text-ink-faint">
+              Follow
+            </p>
+            <div className="mt-3 flex gap-2">
+              {socials.map(({ name, href, Icon }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="grid h-10 w-10 place-items-center rounded-full text-ink-muted transition-colors hover:bg-accent-soft hover:text-accent"
+                  aria-label={name}
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; {date.getFullYear()} Tweetie TuTu, Inc. All rights reserved.
-          </p>
+
+        <div className="border-t border-rule">
+          <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-4 text-[13px] text-ink-muted sm:flex-row sm:items-center sm:px-6 lg:px-8">
+            <span>© {year} Tweetie TuTu · Not affiliated with X / Twitter.</span>
+            <span>Made with <span className="text-like">♥</span> by Krish</span>
+          </div>
         </div>
-      </div>
-    </footer>
-    </>
+      </footer>
+    </div>
   );
 };
 
