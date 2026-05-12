@@ -35,7 +35,7 @@ export function DatePicker() {
               onSelect={(date) =>
                 setTweetData({ ...tweetData, timestamp: date })
               }
-              initialFocus
+              autoFocus
             />
             <TimePicker className='w-full' value={tweetData.time} onChange={(time) =>
                 setTweetData({ ...tweetData, time: time })

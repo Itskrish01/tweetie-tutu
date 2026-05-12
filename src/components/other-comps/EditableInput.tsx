@@ -13,9 +13,9 @@ interface Editable_I {
 const EditableInput = (props: Editable_I) => {
   const [isEditable, setIsEditable] = useState(false);
   const [value, setValue] = useState(props.value[props.name]);
-  const textAreaRef = useRef<HTMLTextAreaElement>();
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
-    if (textAreaRef && props.name === "content" && isEditable) {
+    if (textAreaRef.current && props.name === "content" && isEditable) {
       textAreaRef.current.style.height = "100px";
       const { scrollHeight } = textAreaRef.current;
       textAreaRef.current.style.height = `${scrollHeight}px`;
